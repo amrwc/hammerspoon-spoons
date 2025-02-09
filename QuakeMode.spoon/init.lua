@@ -11,6 +11,9 @@
 --     bundleId = "com.mitchellh.ghostty",
 --     launchIfNeeded = true,
 -- })
+--
+-- NOTE: To find out the bundle id, run the following snippet with an app name, e.g. Firefox:
+-- osascript -e 'id of app "Firefox"'
 
 local SPOON = {}
 SPOON.__index = SPOON
