@@ -1,5 +1,16 @@
 -- Quake Mode - show/hide an application with with a key binding.
 -- Named after the game console toggled by ~ (tilde key) in Quake.
+--
+-- Usage inside the main `init.lua`:
+-- hs.loadSpoon("QuakeMode")
+-- spoon.QuakeMode:bind({
+--     hotkey = {
+--         modifiers = { "control", },
+--         key = "`",
+--     },
+--     bundleId = "com.mitchellh.ghostty",
+--     launchIfNeeded = true,
+-- })
 
 local SPOON = {}
 SPOON.__index = SPOON
