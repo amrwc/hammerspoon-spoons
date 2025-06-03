@@ -133,6 +133,9 @@ return SPOON
 
 -- Changelog
 --
+-- 1.2.0:
+-- - Add and implement `hideIfFrontmost` config option.
+--
 -- 1.1.0:
 -- - Define an validate the configuration passed in.
 -- - Make launching the app configurable.
