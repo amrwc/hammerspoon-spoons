@@ -20,7 +20,7 @@ SPOON.__index = SPOON
 
 -- Metadata
 SPOON.name = "QuakeMode"
-SPOON.version = "1.1.0"
+SPOON.version = "1.2.0"
 SPOON.author = "amrwc"
 SPOON.homepage = "https://github.com/amrwc/hammerspoon-spoons"
 SPOON.license = "MIT - https://opensource.org/licenses/MIT"
@@ -105,7 +105,7 @@ local function callback(config)
     end
 
     local frontmostApp = hs.application.frontmostApplication()
-    if app:bundleID() == frontmostApp:bundleID() then
+    if app:bundleID() == frontmostApp:bundleID() and config.hideIfFrontmost then
         log_debug(app:bundleID() .. " is the frontmost application, hiding it")
         maybe_hide(app)
         return
