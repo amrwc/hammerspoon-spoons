@@ -1,4 +1,6 @@
-# Quake Mode
+# Show App
+
+## Previously called Quake Mode
 
 The name refers to the developer console popping out on the screen when pressing the bound key, `~` (tilde) by default, in the Quake video game.
 See [the quake-mode GNOME extension](https://extensions.gnome.org/extension/1411/quake-mode), for example.

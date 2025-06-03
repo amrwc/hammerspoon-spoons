@@ -2,8 +2,8 @@
 -- Named after the game console toggled by ~ (tilde key) in Quake.
 --
 -- Usage inside the main `init.lua`:
--- hs.loadSpoon("QuakeMode")
--- spoon.QuakeMode:bind({
+-- hs.loadSpoon("ShowApp")
+-- spoon.ShowApp:bind({
 --     hotkey = {
 --         modifiers = { "control", },
 --         key = "`",
@@ -19,8 +19,8 @@ local SPOON = {}
 SPOON.__index = SPOON
 
 -- Metadata
-SPOON.name = "QuakeMode"
-SPOON.version = "1.2.0"
+SPOON.name = "ShowApp"
+SPOON.version = "2.0.0"
 SPOON.author = "amrwc"
 SPOON.homepage = "https://github.com/amrwc/hammerspoon-spoons"
 SPOON.license = "MIT - https://opensource.org/licenses/MIT"
@@ -132,6 +132,9 @@ end
 return SPOON
 
 -- Changelog
+--
+-- 2.0.0:
+-- - Rename the Spoon from ‘QuakeMode’ to ‘ShowApp’.
 --
 -- 1.2.0:
 -- - Add and implement `hideIfFrontmost` config option.
