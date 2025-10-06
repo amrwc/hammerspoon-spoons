@@ -1,5 +1,4 @@
--- Quake Mode - show/hide an application with with a key binding.
--- Named after the game console toggled by ~ (tilde key) in Quake.
+-- ShowApp - show/hide an application with with a key binding.
 --
 -- Usage inside the main `init.lua`:
 -- hs.loadSpoon("ShowApp")
@@ -20,7 +19,7 @@ SPOON.__index = SPOON
 
 -- Metadata
 SPOON.name = "ShowApp"
-SPOON.version = "2.0.0"
+SPOON.version = "2.0.1"
 SPOON.author = "amrwc"
 SPOON.homepage = "https://github.com/amrwc/hammerspoon-spoons"
 SPOON.license = "MIT - https://opensource.org/licenses/MIT"
@@ -132,6 +131,9 @@ end
 return SPOON
 
 -- Changelog
+--
+-- 2.0.1:
+-- - Reflect the Spoon renaming from 2.0.0 inside the comment at the top.
 --
 -- 2.0.0:
 -- - Rename the Spoon from ‘QuakeMode’ to ‘ShowApp’.
