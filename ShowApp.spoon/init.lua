@@ -7,7 +7,7 @@
 --         modifiers = { "control", },
 --         key = "`",
 --     },
---     bundleId = "com.mitchellh.ghostty",
+--     bundleIds = {"com.jetbrains.intellij", "com.jetbrains.intellij.ce",},
 --     launchIfNeeded = true,
 -- })
 --
@@ -19,7 +19,7 @@ SPOON.__index = SPOON
 
 -- Metadata
 SPOON.name = "ShowApp"
-SPOON.version = "2.0.1"
+SPOON.version = "3.0.0"
 SPOON.author = "amrwc"
 SPOON.homepage = "https://github.com/amrwc/hammerspoon-spoons"
 SPOON.license = "MIT - https://opensource.org/licenses/MIT"
@@ -50,27 +50,32 @@ local function validate_config_or_throw(config)
     elseif not config.hotkey.key or #config.hotkey.key == 0 then
         append_missing_or_empty("hotkey.key")
     end
-    if not config.bundleId or #config.bundleId == 0 then
-        append_missing_or_empty("bundleId")
+    if not config.bundleIds or #config.bundleIds == 0 then
+        append_missing_or_empty("bundleIds")
     end
     if #errors ~= 0 then
         error("Config validation failed, errors: " .. hs.inspect(errors))
     end
 end
 
-local function find_app_by_bundle_id(bundleId)
-    local foundApps = hs.application.applicationsForBundleID(bundleId)
-    if #foundApps == 0 then
-        log_warn("No " .. bundleId .. " window was not found")
-        return nil
+local function find_app_by_bundle_ids(bundleIds)
+    for i, bundleId in ipairs(bundleIds) do
+        local foundApps = hs.application.applicationsForBundleID(bundleId)
+        if #foundApps > 0 then
+            return foundApps[1]
+        end
+        log_debug("No " .. bundleId .. " window was found")
     end
-    return foundApps[1]
+    return nil
 end
 
-local function maybe_launch(bundleId)
-    log_debug("Launching or focusing " .. bundleId)
-    local succeeded = hs.application.launchOrFocusByBundleID(bundleId)
-    if not succeeded then
+local function maybe_launch(bundleIds)
+    for i, bundleId in ipairs(bundleIds) do
+        log_debug("Launching or focusing " .. bundleId)
+        local succeeded = hs.application.launchOrFocusByBundleID(bundleId)
+        if succeeded then
+            return
+        end
         log_error("Failed to launch " .. bundleId)
     end
 end
@@ -94,11 +99,11 @@ local function maybe_hide(app)
 end
 
 local function callback(config)
-    local app = find_app_by_bundle_id(config.bundleId)
+    local app = find_app_by_bundle_ids(config.bundleIds)
     if not app then
         if config.launchIfNeeded then
-            log_info(config.bundleId .. " not running, launching it")
-            maybe_launch(config.bundleId)
+            log_info(hs.inspect(config.bundleIds) .. " not running, launching first found app")
+            maybe_launch(config.bundleIds)
         end
         return
     end
@@ -114,7 +119,7 @@ local function callback(config)
 end
 
 -- `config` example:
--- { hotkey = { modifiers = { "control", }, key = "`" }, bundleId = "com.mitchellh.ghostty", launchIfNeeded = true }
+-- { hotkey = { modifiers = { "control", }, key = "`" }, bundleIds = {"com.jetbrains.intellij", "com.jetbrains.intellij.ce",}, launchIfNeeded = true }
 -- `modifiers` in `hotkey` is optional.
 function SPOON:bind(config)
     validate_config_or_throw(config)
@@ -131,6 +136,10 @@ end
 return SPOON
 
 -- Changelog
+--
+-- 3.0.0:
+-- - Change bundleId in config to bundleIds to support multiple ids for the same hotkey.
+-- - Now, bundleIds’ order determines which app takes precedence.
 --
 -- 2.0.1:
 -- - Reflect the Spoon renaming from 2.0.0 inside the comment at the top.
